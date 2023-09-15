@@ -5,21 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
-
 </head>
 
 <body>
-
-
-
-
-
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
         type="button"
         class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -78,65 +66,6 @@
             </ul>
         </div>
     </aside>
-
-    <div class="p-4 sm:ml-64">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a href="">Navbar</a>
-
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <div class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">......</a></li>
-                        <li><a class="dropdown-item" href="#">......</a></li>
-                        <li><a class="dropdown-item" href="#">......</a></li>
-                    </div>
-                </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-        <h1 class="p-4"><i>Dashboard Sekolah</i></h1>
-        <br>
-
-        <div class="row ">
-            <div class="col-3 card p-2">
-                <div class="card-body">
-                    <p>Jumlah Kelas</p>
-                    <a href="#" class="btn btn-primary d-grid gap-2">Data Lengkap</a>
-                </div>
-            </div>
-            <br>
-            <div class="col-3 card p-2">
-                <div class="card-body">
-                    <p>Daftar Siswa</p>
-                    <a href="<?php echo base_url('admin/daftar_siswa'); ?>" class="btn btn-primary d-grid gap-2">Data
-                        Lengkap</a>
-                </div>
-            </div>
-            <br>
-            <div class="col-3 card p-2">
-                <div class="card-body">
-                    <p>Mapel</p>
-                    <a href="#" class="btn btn-primary d-grid gap-2">Data Lengkap</a>
-                </div>
-            </div>
-            <div class="col-3 card p-2">
-                <div class="card-body">
-                    <p>Guru</p>
-                    <a href="#" class="btn btn-primary d-grid gap-2">Data Lengkap</a>
-                </div>
-            </div>
-        </div>
-        <br>
-
-
-    </div>
 </body>
 
 </html>

@@ -1,6 +1,3 @@
-<?php 
-include 'connect.php'
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,7 +96,9 @@ include 'connect.php'
                     </div>
                 </div>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        name="search">
+
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -114,50 +113,50 @@ include 'connect.php'
                         <table class="table  table-striped">
                             <thead>
                                 <tr>
+                                    <th scope="col">No </th>
                                     <th scope="col">Nama </th>
                                     <th scope="col">NISN </th>
                                     <th scope="col"> Gender </th>
+                                    <th scope="col"> Kelas </th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                    $sql = "SELECT * FROM kartu_elektronik";
-                    $result = mysqli_query($conn, $sql);
-                    if ($result) {
-                        while ($data = mysqli_fetch_assoc($result)) {
-                            $id = $data['id'];
-                            $nama = $data['nama_lengkap'];
-                            $nisn = $data['NISN'];
-                            $gender = $data['Gender'];
-                            
-                            echo '<tr>
-                          <td>' . $nama . '</td>
-                          <td>' . $nisn . '</td>
-                          <td>' . $gender . '</td>
-                          
-                          <td class="text-center ">
-                          <a href="update.php?id=' . $id . '"class="btn btn-sm btn-warning text-dark">Update</a>
-                          
-                          <a href="delete.php?id=' . $id . '"class="btn btn-sm btn-warning text-dark">Delete</a>
-                          </td>
-                        
-                          </tr>';
-                        }
-                    }
+                 $no= 0;foreach ($siswa as $row  ) :$no++                          
                     ?>
+                                <tr>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo$no ?></td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        <?php echo $row->nama_siswa ?></td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $row->nisn ?></td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $row->gender ?>
+                                    </td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        <?php echo tampil_full_kelas_byid($row->id_kelas) ?>
+                                    </td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        <a href="<?php ?>"
+                                            class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700">Ubah</a>
+
+                                        <button onclick="hapus(<?php echo $row->id_siswa ?>)"
+                                            class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700">Hapus</button>
+                                    </td>
+
+                                </tr><?php endforeach ?>
 
                             </tbody>
                         </table>
-                        <button class="btn btn-sm btn-warning"><a href="create.php"
-                                class="btn text-dark">Tambah</a></button>
+                        <a href="<?php echo base_url('admin/tambah_siswa') ?>"
+                            class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700 text-center">Tambah</a>
                     </div>
                     </form>
+
                     <script>
                     function hapus(id) {
                         var yes = confirm("Yakin Ingin Menghapus Data Anda")
                         if (yes === true) {
-                            window.location.href = "delete.php?id=" + id;
+                            window.location.href = "<?php echo base_url('admin/hapus_siswa/') ?>" + id;
                         }
                     }
                     </script>
