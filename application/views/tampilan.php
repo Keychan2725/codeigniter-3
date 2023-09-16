@@ -26,8 +26,6 @@
 </style>
 
 <body class="background ">
-    <h1 class="my-5 fw-bold text-center">Selamat datang <?php echo $this->session->userdata('username') ?></h1>
-    <a href="<?php echo base_url('Login/logout'); ?>" class="btn btn-primary">Log out</a>
     <div class="background-image-black  align-item-center" style="padding-top: 8%;">
 
         <h1 class="text-center text-white "><i>Pendaftaran Online</i></h1>

@@ -114,9 +114,11 @@
             <br>
             <div class="col-3 card p-2">
                 <div class="card-body">
-                    <p>Daftar Siswa</p>
-                    <a href="<?php echo base_url('admin/daftar_siswa'); ?>" class="btn btn-primary d-grid gap-2">Data
-                        Lengkap</a>
+                    <p>Jumlah Siswa</p>
+                    <php><?php echo $siswa ?></p>
+                        <a href="<?php echo base_url('admin/daftar_siswa'); ?>"
+                            class="btn btn-primary d-grid gap-2">Data
+                            Lengkap</a>
                 </div>
             </div>
             <br>
