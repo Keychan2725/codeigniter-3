@@ -54,6 +54,9 @@
                 </select>
 
             </div>
+            <div class="mb-4 col-6">
+                <input type="file" class="form-control" name="foto" />
+            </div>
             <br>
             <br>
             <div class="flex justify-content-between">

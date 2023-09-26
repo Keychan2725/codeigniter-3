@@ -64,6 +64,14 @@
 
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo base_url('admin/user') ?>"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+
+                        <span class="flex-1 ml-3 whitespace-nowrap">Account</span>
+
+                    </a>
+                </li>
 
 
 
@@ -115,10 +123,9 @@
             <div class="col-3 card p-2">
                 <div class="card-body">
                     <p>Jumlah Siswa</p>
-                    <php><?php echo $siswa ?></p>
-                        <a href="<?php echo base_url('admin/daftar_siswa'); ?>"
-                            class="btn btn-primary d-grid gap-2">Data
-                            Lengkap</a>
+                    <p><?php echo $siswa ?></p>
+                    <a href="<?php echo base_url('admin/daftar_siswa'); ?>" class="btn btn-primary d-grid gap-2">Data
+                        Lengkap</a>
                 </div>
             </div>
             <br>

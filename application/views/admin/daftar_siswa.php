@@ -65,6 +65,14 @@
 
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo base_url('admin/user') ?>"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+
+                        <span class="flex-1 ml-3 whitespace-nowrap">Account</span>
+
+                    </a>
+                </li>
 
 
 
@@ -115,6 +123,7 @@
                                 <tr>
                                     <th scope="col">No </th>
                                     <th scope="col">Nama </th>
+                                    <th scope="col">Foto Siswa </th>
                                     <th scope="col">NISN </th>
                                     <th scope="col"> Gender </th>
                                     <th scope="col"> Kelas </th>
@@ -130,6 +139,12 @@
                                     <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $no ?></td>
                                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                                         <?php echo $row->nama_siswa ?></td>
+
+                                    </td>
+                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                        <img src="<?php echo base_url('image/siswa/'.$row->foto); ?>  " width="50">
+                                    </td>
+                                    </td>
                                     <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $row->nisn ?></td>
                                     <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $row->gender ?>
                                     </td>

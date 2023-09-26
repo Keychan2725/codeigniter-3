@@ -59,6 +59,9 @@
                     </select>
 
                 </div>
+                <div class="mb-4 col-6">
+                    <input type="file" class="form-control" id="foto" name="foto">
+                </div>
                 <div class="flex justify-content-between">
                     <div>
                         <a href="<?php echo base_url('admin/daftar_siswa'); ?>"

@@ -18,34 +18,14 @@
         </tr>
         <?php $no = 0;
         foreach ($user as $row) : $no++ ?>
-            <tr>
-                <td><?php echo $no ?></td>
-                <td><?php echo $row->username ?></td>
-                <td><?php echo $row->email ?></td>
-            </tr>
-        <?php endforeach ?>
-    </table>
-    <table border="1">
         <tr>
-
-            <th>No</th>
-            <th>Nama Siswa</th>
-            <th>NISN</th>
-            <th>Gender</th>
-            <th>Kelas</th>
+            <td><?php echo $no ?></td>
+            <td><?php echo $row->username ?></td>
+            <td><?php echo $row->email ?></td>
         </tr>
-        <br>
-        <?php $no = 0;
-        foreach ($nama as $row) : $no++ ?>
-            <tr>
-                <td><?php echo $no ?></td>
-                <td><?php echo $row->nama_siswa ?></td>
-                <td><?php echo $row->nisn ?></td>
-                <td><?php echo $row->gender ?></td>
-                <td><?php echo tampil_full_kelas_byid($row->id_kelas) ?></td>
-            </tr>
         <?php endforeach ?>
     </table>
+
 </body>
 
 </html>
