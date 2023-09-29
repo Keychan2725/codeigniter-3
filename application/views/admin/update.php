@@ -24,11 +24,11 @@
     <div class="card w-50 m-auto p-3">
         <h3 class="text-center">Update Data </h3>
         <?php foreach ($siswa as $data_siswa) : ?>
-        <form method="post" action="<?php echo base_url('admin/aksi_update_siswa') ?>" enctype="multipart/form_data">
+        <form method="post" action="<?php echo base_url('admin/aksi_ubah_siswa') ?>" enctype="multipart/form_data">
             <input name="id_siswa" type="hidden" value="<?php echo $data_siswa->id_siswa ?>">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap"
+                <input type="text" class="form-control" id="nama" name="nama"
                     value="<?php echo $data_siswa->nama_siswa ?>">
             </div>
             <div class="mb-3">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label for="kelas" class="form-label">Kelas</label>
-                    <select name="id_kelas" class="form-select">
+                    <select name="kelas" class="form-select">
                         <option selected value="<?php echo $data_siswa->id_kelas ?>">
                             <?php echo tampil_full_kelas_byid($data_siswa->id_kelas) ?></option>
                         <?php foreach ($kelas as $row) : ?>
