@@ -84,7 +84,8 @@
                 <table class="table table-striped table-hover">
 
                     <a href="<?php echo base_url('keuangan/tambah_pembayaran') ?>"
-                        class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
+                        class="inline-block rounded bg-sky-600 px-4 py-2  text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
+
                     <br>
                     <br>
 
@@ -92,6 +93,7 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama Siswa</th>
+                            <th scope="col">Kelas</th>
                             <th scope="col">Jenis Pembayaran</th>
                             <th scope="col">Total</th>
                             <th scope="col">Aksi</th>
@@ -104,6 +106,8 @@
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $no ?></td>
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <?php echo tampil_full_siswa($data->id_siswa) ?></td>
+                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                <?php echo tampil_full_kelas_byid($data->id_kelas) ?></td>
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->jenis_pembayaran ?>
                             </td>
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->total_pembayaran ?>
@@ -115,8 +119,9 @@
 
                                 <button onclick="hapus(<?php echo $data->id ?>)"
                                     class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700">Hapus</button>
+                                <a href="<?php echo base_url('keuangan/export') ?>"
+                                    class="  text-xs  text-center btn btn-success">Export</a>
                             </td>
-
                         </tr>
                         <?php endforeach?>
                     </tbody>

@@ -92,7 +92,18 @@
                 </select>
 
             </div>
+            <div class="mb-3 col-6">
+                <label for="kelas" class="form-label">Kelas</label>
+                <select name="id_kelas" class="form-select">
+                    <option selected>Pilih Kelas</option>
+                    <?php foreach ($kelas as $row) : ?>
+                    <option value="<?php echo $row->id ?>">
+                        <?php echo $row->tingkat_kelas . ' ' . $row->jurusan_kelas ?>
+                    </option>
+                    <?php endforeach ?>
+                </select>
 
+            </div>
             <div class="mb-3 col-6">
                 <label for="jenis_pembayaran" class="form-label">Jenis Pembayaran</label>
                 <select placeholder="Jenis Pembayaran" name="jenis_pembayaran" class="form-select">
