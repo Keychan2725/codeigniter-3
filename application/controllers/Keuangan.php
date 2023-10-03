@@ -101,18 +101,45 @@ $numrow++;
 
 		$writer =new Xlsx($spreadsheet);
 		$writer->save('php://output');
+	}
+public function import(){
 
+	if (isset($_FILES["file"]["name"])) {
+		$path = $_FILES["file"]["tmp_name"];
+		$object = PhpOffice\PhpSpreadsheet\IOFACTORY::load($path);
+		foreach ($object->getWorksheetIterator() as $worksheet) {
+$highestrow = $worksheet->getHighestRow();
+$highestColumn= $worksheet->getHighestColumn();
+for ($row=2; $row <= $highestrow ; $row++) { 
+	$jenis_pembayaran= $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+	$total_pembayaran= $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+	$nisn= $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+
+$get_id_by_nisn= $this->m_model->get_by_nisn($nisn);
+$data =array(
+	'jenis_pembayaran'=> $jenis_pembayaran,
+	'total_pembayaran'=> $total_pembayaran,
+	'id_siswa'=> $get_id_by_nisn
+);
+
+$this->m_model->tambah_data('pembayaran',$data);
+}
+}
+redirect(base_url('keuangan/pembayaran'));
+}else {
+	echo "Invalid errror";
+}
+}
 		
 
 
 
-}
 
 
     public function pembayaran()
     {
         $data['pembayaran']=$this->m_model->get_data('pembayaran')->result();
-        $data['kelas']=$this->m_model->get_data('kelas')->result();
+        // $data['kelas']=$this->m_model->get_data('kelas')->result();
         $this->load->view('Keuangan/pembayaran',$data);
     }
     public function tambah_pembayaran()
@@ -120,7 +147,7 @@ $numrow++;
 
 		
 		$data['siswa'] = $this->m_model->get_data('siswa')->result();
-		$data['kelas'] = $this->m_model->get_data('kelas')->result();
+		// $data['kelas'] = $this->m_model->get_data('kelas')->result();
 		$data['pembayaran'] = $this->m_model->get_data('pembayaran')->result();
 		$this->load->view('keuangan/tambah_pembayaran', $data);
 	}
@@ -128,7 +155,7 @@ $numrow++;
 	{
 		$data = [
 			'id_siswa' => $this->input->post('id_siswa'),
-			'id_kelas' => $this->input->post('id_kelas'),
+			// 'id_kelas' => $this->input->post('id_kelas'),
 			'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
 			'total_pembayaran' => $this->input->post('total_pembayaran'),
 	
@@ -149,7 +176,7 @@ $numrow++;
     {		
         
         $data['siswa'] = $this->m_model->get_data('siswa')->result();
-        $data['kelas'] = $this->m_model->get_data('kelas')->result();
+        // $data['kelas'] = $this->m_model->get_data('kelas')->result();
 
         $data['pembayaran'] = $this->m_model->get_by_id('pembayaran', 'id', $id)->result();
      
@@ -159,7 +186,7 @@ $numrow++;
 	{
 		$data = array(
 			'id_siswa' => $this->input->post('id_siswa'),
-			'id_kelas' => $this->input->post('id_kelas'),
+			// 'id_kelas' => $this->input->post('id_kelas'),
 			'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
 			'total_pembayaran' => $this->input->post('total_pembayaran'),
 		);

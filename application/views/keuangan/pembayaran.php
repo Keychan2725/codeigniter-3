@@ -80,20 +80,27 @@
         <div class="card text-bg-light mb-3" width="100%">
             <div class="card-header fs-3">Data Pembayaran</div>
             <div class="card-body">
+                <a href="<?php echo base_url('keuangan/tambah_pembayaran') ?>"
+                    class="inline-block rounded bg-sky-600 px-4 py-2  text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
 
+
+                <a href="<?php echo base_url('keuangan/export') ?>"
+                    class="  inline-block rounded bg-green-600 px-4 py-2  text-xs font-medium text-white hover:bg-green-700 text-center btn btn-success">Export</a>
+                <button type="button"
+                    class="inline-block rounded bg-sky-400 px-4 py-2  text-xs font-medium text-white hover:bg-sky-500 text-center btn btn-info"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Import
+                </button>
                 <table class="table table-striped table-hover">
 
-                    <a href="<?php echo base_url('keuangan/tambah_pembayaran') ?>"
-                        class="inline-block rounded bg-sky-600 px-4 py-2  text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
 
-                    <br>
-                    <br>
+
 
                     <thead class="fs-5">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama Siswa</th>
-                            <th scope="col">Kelas</th>
+                            <!-- <th scope="col">Kelas</th> -->
                             <th scope="col">Jenis Pembayaran</th>
                             <th scope="col">Total</th>
                             <th scope="col">Aksi</th>
@@ -106,8 +113,8 @@
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $no ?></td>
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <?php echo tampil_full_siswa($data->id_siswa) ?></td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <?php echo tampil_full_kelas_byid($data->id_kelas) ?></td>
+                            <!-- <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                <?php echo tampil_full_kelas_byid($data->id_kelas) ?></td> -->
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->jenis_pembayaran ?>
                             </td>
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->total_pembayaran ?>
@@ -119,8 +126,7 @@
 
                                 <button onclick="hapus(<?php echo $data->id ?>)"
                                     class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700">Hapus</button>
-                                <a href="<?php echo base_url('keuangan/export') ?>"
-                                    class="  text-xs  text-center btn btn-success">Export</a>
+
                             </td>
                         </tr>
                         <?php endforeach?>
@@ -129,7 +135,32 @@
                 </table>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Import File</h1>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button> -->
+                    </div>
+                    <form action="<?php echo base_url('keuangan/import') ?>" method="post"
+                        enctype="multipart/form-data">
 
+                        <div class="modal-body">
+                            <input name="file" type="file">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                data-bs-dismiss="modal">Close</button>
+                            <input type="submit" name="import"
+                                class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700"
+                                Value="Import" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 <script>
