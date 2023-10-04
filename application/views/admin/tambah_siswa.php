@@ -28,7 +28,7 @@
         <form action="<?php echo base_url('admin/aksi_tambah_siswa')  ?>" method="post" class="row">
             <div class="mb-3 col-6">
                 <label for="nama" class="form-label">Nama Siswa</label>
-                <input type="text" placeholder="Nama Siswa" class="form-control" id="nama" name="nama">
+                <input type="text" placeholder="Nama Siswa" class="form-control" id="nama_siswa" name="nama_siswa">
             </div>
             <div class="mb-3 col-6">
                 <label for="nisn" class="form-label">NISN</label>

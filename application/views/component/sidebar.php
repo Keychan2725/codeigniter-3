@@ -34,14 +34,7 @@
 
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('admin/keuangan') ?>"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                        <span class="flex-1 ml-3 whitespace-nowrap">Keuangan</span>
-
-                    </a>
-                </li>
                 <li>
                     <a href="<?php echo base_url('admin/user') ?>"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

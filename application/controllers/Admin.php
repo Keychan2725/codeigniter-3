@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Admin extends CI_Controller
 {
 
@@ -18,107 +19,201 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['siswa'] = $this->m_model->get_data('siswa')->num_rows();
-        $data['keuangan'] = $this->m_model->get_data('keuangan')->num_rows();
+        $data['keuangan'] = $this->m_model->get_data('pembayaran')->num_rows();
 
         $this->load->view('admin/index', $data);
     }
-    public function upload_img($value)
-{
-    $kode = round(microtime(true) * 1000);
-    $config['upload_path'] = './images/siswa/';
-    $config['allowed_types'] = 'gif|jpg|png|jpeg';
-    $config['max_size'] = '30000';
-    $config['file_name'] = $kode;
-    
-    $this->load->library('upload', $config); // Load library 'upload' with config
-    
-    if (!$this->upload->do_upload($value)) {
-        return array(false, '');
-    } else {
-        $fn = $this->upload->data();
-        $nama = $fn['file_name'];
-        return array(true, $nama);
-    }
-}
-public function aksi_tambah_siswa()
-  {
-    $file_name = $_FILES['foto']['name'];
-    $file_temp = $_FILES['foto']['tmp_name'];
-    $kode = round(microtime(true) * 1000);
-    $file_name = $kode . '_' . $file_name;
-    $upload_path = './images/siswa/' . $file_name;
-
-    if (move_uploaded_file($file_temp, $upload_path)) {
-      $data = [
-        'foto' => $file_name,
-        'nama_siswa' => $this->input->post('nama'),
-        'nisn' => $this->input->post('nisn'),
-        'gender' => $this->input->post('gender'),
-        'id_kelas' => $this->input->post('kelas'),
-      ];
-      $this->m_model->tambah_data('siswa', $data);
-      redirect(base_url('admin/daftar_siswa'));
-    } else {
-      $data = [
-        'foto' => 'User.png',
-        'nama_siswa' => $this->input->post('nama'),
-        'nisn' => $this->input->post('nisn'),
-        'gender' => $this->input->post('gender'),
-        'id_kelas' => $this->input->post('kelas'),
-      ];
-      $this->m_model->tambah_data('siswa', $data);
-      redirect(base_url('admin/daftar_siswa'));
-    }
-  }
-    // public function keuangan()
-    // {
-    //     $data['uang'] = $this->m_model->get_data('keuangan')->result();
-
-    //     $this->load->view('admin/keuangan', $data);
-    // } 
-    // public function add_keuangan()
-    // {
-    //     $data['uang'] = $this->m_model->get_data('keuangan')->result();
-    //     $this->load->view('admin/add_keuangan', $data);
-    // }
-    // public function aksi_add_keuangan(){
-    //     $data =[
-    //         'pemasukan'=> $this->input->post('pemasukan'),
-    //         'pengeluaran '=> $this->input->post('pengeluaran'),
-    //         'tanggal '=> $this->input->post('tanggal'),
-    //     ]; 
-    //     // if (!empty('pemasukan') && !empty('pengeluaran')) {
-    //     //  !empty('pemasukan') - !empty('pengeluaran') == 
-    //     // }
-    //     $this->m_model->tambah_data('keuangan',$data);
-    //     redirect(base_url('admin/keuangan'));
-    // }
-    // public function update_keuangan($id)
-    // {
-    //     $data['uang'] = $this->m_model->get_by_id('keuangan', 'id', $id)->result();
-     
-    //     $this->load->view('admin/update_keuangan', $data);
-    // }
-    // public function aksi_update_uang()
-    // {
-    //     $data = array(
-    //         'pemasukan' => $this->input->post('nama_lengkap'),
-    //         'pengeluaran' => $this->input->post('pengeluaran'),
-    //         'tanggal' => $this->input->post('tanggal'),
+    public function  export(){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+         
+        $style_col = [
+            'font'=> ['bold' => true],
+            'alignment'=> [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment ::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment ::VERTICAL_CENTER
+            ],
+            'borders'=> [
+                'top'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'right'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'bottom'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'left'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN]
+            ],
+            ];
+        $style_row = [
             
-    //     );
-    //     $eksekusi = $this->m_model->ubah_data('keuangan', $data, array('id' => $this->input->post('id')));
-    //     if ($eksekusi) {
-    //         $this->session->set_flashdata('sukses', 'berhasil');
-    //         redirect(base_url('admin/keuangan'));
-    //     } else {
-    //         $this->session->set_flashdata('error', 'gagal');
-    //         redirect(base_url('admin/update_keuangan/' . $this->input->post('id')));
-    //     }
+            'alignment'=> [
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment ::VERTICAL_CENTER
+            ],
+            'borders'=> [
+                'top'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'right'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'bottom'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN],
+                'left'=> ['borderstyle'=> \PhpOffice\PhpSpreadsheet\Style\Border ::BORDER_THIN]
+            ],
+            ];
+    // Head
+            $sheet->setCellValue('A1','DATA SISWA');
+            $sheet->mergeCells('A1:E1');
+            $sheet->getStyle('A1')->getFont()->setBold(true);
+    
+            $sheet->setCellValue('A2','ID');
+            $sheet->setCellValue('B2','NAMA SISWA');
+            $sheet->setCellValue('C2','NISN');
+            $sheet->setCellValue('D2','GENDER');
+            $sheet->setCellValue('E2','KELAS');
+            $sheet->setCellValue('F2','FOTO');
+    
+            $sheet->getStyle('A2')->applyFromArray($style_col);
+            $sheet->getStyle('B2')->applyFromArray($style_col);
+            $sheet->getStyle('C2')->applyFromArray($style_col);
+            $sheet->getStyle('D2')->applyFromArray($style_col);
+            $sheet->getStyle('E2')->applyFromArray($style_col);
+            $sheet->getStyle('F2')->applyFromArray($style_col);
+    // get data dari database
+            $data_siswa = $this->m_model->get_data('siswa')->result();
+    // isi
+            $no=1;
+            $numrow=3;
+            foreach ($data_siswa as $data) {
+            $sheet->setCellValue('A'.$numrow,$data->id_siswa);
+            $sheet->setCellValue('B'.$numrow,$data->nama_siswa);
+            $sheet->setCellValue('C'.$numrow,$data->nisn);
+            $sheet->setCellValue('D'.$numrow,$data->gender);
+            $sheet->setCellValue('E'.$numrow,tampil_full_kelas_byid($data->id_kelas));
+          
+    
+    $sheet->getStyle('A'.$numrow)->applyFromArray($style_row);
+    $sheet->getStyle('B'.$numrow)->applyFromArray($style_row);
+    $sheet->getStyle('C'.$numrow)->applyFromArray($style_row);
+    $sheet->getStyle('D'.$numrow)->applyFromArray($style_row);
+    $sheet->getStyle('E'.$numrow)->applyFromArray($style_row);
+     
+    $no++;
+    $numrow++;
+    }
+    
+    
+            $sheet->getColumnDimension('A')->setWidth(5);
+            $sheet->getColumnDimension('B')->setWidth(25);
+            $sheet->getColumnDimension('C')->setWidth(25);
+            $sheet->getColumnDimension('D')->setWidth(20);
+            $sheet->getColumnDimension('E')->setWidth(30);
+     
+            $sheet->getDefaultRowDimension()->setRowHeight(-1);
+    
+            $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+    
+            $sheet->setTitle("LAPORAN DATA SISWA");
+    
+    
+            header('Content-Type: aplication/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="Siswa.xlsx"');
+            header('cache-Control: max-age=0');
+    
+            $writer =new Xlsx($spreadsheet);
+            $writer->save('php://output');
+        }
+        public function import() 
+        { 
+          if (isset($_FILES["file"]["name"])) { 
+            $path = $_FILES["file"]["tmp_name"]; 
+            $object = PhpOffice\PhpSpreadsheet\IOFactory::load($path); 
+            foreach ($object->getWorksheetIterator() as $worksheet) { 
+              $highestRow = $worksheet->getHighestRow(); 
+              $highestColumn = $worksheet->getHighestColumn(); 
+              for ($row = 3; $row <= $highestRow; $row++) { 
+                $foto = $worksheet->getCellByColumnAndRow(6, $row)->getValue(); 
+                $nisn = $worksheet->getCellByColumnAndRow(3, $row)->getValue(); 
+                $nama_siswa = $worksheet->getCellByColumnAndRow(2, $row)->getValue(); 
+                $gender = $worksheet->getCellByColumnAndRow(4, $row)->getValue(); 
+                $kelas = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+         
+                // Periksa apakah ID siswa sudah ada 
+                $get_id_by_nisn = $this->m_model->get_by_nisn($nisn); 
+                $parts = explode(' ', $kelas); 
+                             
+                // Ambil kata pertama 
+                $tingkat = $parts[0]; 
+                $jurusan = $parts[1]; 
+                $get_id_by_jurusan = $this->m_model->get_by_jurusan($jurusan, $tingkat); 
+     
+                if (!$get_id_by_nisn) { 
+                  // Jika ID siswa belum ada, masukkan data baru 
+                  $data = array( 
+                    'foto' => $foto, 
+                    'nisn' => $nisn, 
+                    'nama_siswa' => $nama_siswa, 
+                    'gender' => $gender, 
+            'id_kelas' => $get_id_by_jurusan
+                  ); 
+                  $this->m_model->tambah_data('siswa', $data); 
+                } else { 
+                  // Jika ID siswa sudah ada, lakukan tindakan yang sesuai
+                  // Misalnya, Anda bisa memperbarui data yang sudah ada 
+                  $data = array( 
+                    'foto' => $foto, 
+                    'nisn' => $nisn, 
+                    'nama_siswa' => $nama_siswa, 
+                    'gender' => $gender, 
+            'id_kelas' => $get_id_by_jurusan
+                  ); 
+                  $this->m_model->ubah_data('siswa', $data, array('id_siswa' => $get_id_by_nisn)); 
+                } 
+              } 
+            } 
+            redirect(base_url('admin/daftar_siswa')); 
+          } else { 
+            echo 'Invalid File'; 
+          } 
+        }
+    public function upload_img($value)
+    {
+        $kode = round(microtime(true) * 1000);
+        $config['upload_path'] = './images/siswa/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = '30000';
+        $config['file_name'] = $kode;
+        
+        $this->load->library('upload', $config); // Load library 'upload' with config
+        
+        if (!$this->upload->do_upload($value)) {
+            return array(false, '');
+        } else {
+            $fn = $this->upload->data();
+            $nama = $fn['file_name'];
+            return array(true, $nama);
+        }
+    }
+    
+    public function aksi_tambah_siswa()
+    {
+        $foto = $this->upload_img('foto');
+        
+        if ($foto[0] == false) {
+            $data = [
+                'foto' => 'User.png',
+                'nama_siswa' => $this->input->post('nama_siswa'),
+                'nisn' => $this->input->post('nisn'),
+                'gender' => $this->input->post('gender'),
+                'id_kelas' => $this->input->post('id_kelas'),
+            ];
+            $this->m_model->tambah_data('siswa', $data);
+            redirect(base_url('admin/daftar_siswa'));
+        } else {
+            $data = [
+                'foto' => $foto[1],
+                'nama_siswa' => $this->input->post('nama_siswa'),
+                'nisn' => $this->input->post('nisn'),
+                'gender' => $this->input->post('gender'),
+                'id_kelas' => $this->input->post('id_kelas'),
+            ];
+            $this->m_model->tambah_data('siswa', $data);
+            redirect(base_url('admin/daftar_siswa'));
+        }
+    }
 
-    //     $this->load->view('admin/keuangan');
-    // }
-
+  
     public function user()
     {
         $data['user'] = $this->m_model->get_by_id('admin', 'id', $this->session->userdata('id'))->result();
@@ -253,7 +348,7 @@ public function aksi_tambah_siswa()
     $siswa=$this->m_model->get_by_id('siswa','id_siswa' ,$id)->row();
 if ($siswa) {
    if ($siswa->foto !== 'User.png') {
-$file_path = './images/siswa'. $siswa->$foto;
+$file_path = './images/siswa'. $siswa->foto;
 if (file_exists($file_path)) {
 if (unlink($upload_path)) {
     //hapus file berhasil menggunakan metode delete

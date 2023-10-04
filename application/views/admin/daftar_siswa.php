@@ -47,14 +47,7 @@
 
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('admin/keuangan') ?>"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                        <span class="flex-1 ml-3 whitespace-nowrap">Keuangan</span>
-
-                    </a>
-                </li>
                 <li>
                     <a href="<?php echo base_url('admin/user') ?>"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -107,6 +100,17 @@
         <div class="row ">
             <div class="col-12 card p-2">
                 <div class="card-body min-vh-100  align-items-center">
+                    <a href="<?php echo base_url('admin/tambah_siswa') ?>"
+                        class="inline-block rounded bg-sky-600 px-4 py-2  text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
+
+
+                    <a href="<?php echo base_url('admin/export') ?>"
+                        class="  inline-block rounded bg-green-600 px-4 py-2  text-xs font-medium text-white hover:bg-green-700 text-center btn btn-success">Export</a>
+                    <button type="button"
+                        class="inline-block rounded bg-sky-400 px-4 py-2  text-xs font-medium text-white hover:bg-sky-500 text-center btn btn-info"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Import
+                    </button>
                     <div class="card w-100 m-auto p-2">
                         <table class="table  table-striped">
                             <thead>
@@ -153,8 +157,7 @@
 
                             </tbody>
                         </table>
-                        <a href="<?php echo base_url('admin/tambah_siswa') ?>"
-                            class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700 text-center btn btn-primary">Tambah</a>
+
                     </div>
                     </form>
 
@@ -173,7 +176,30 @@
 
         </div>
         <br>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Import File</h1>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button> -->
+                    </div>
+                    <form action="<?php echo base_url('admin/import') ?>" method="post" enctype="multipart/form-data">
 
+                        <div class="modal-body">
+                            <input name="file" type="file">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                data-bs-dismiss="modal">Close</button>
+                            <input type="submit" name="import"
+                                class="inline-block rounded bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700"
+                                Value="Import" />
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

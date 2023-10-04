@@ -59,10 +59,14 @@ public function  export(){
 		$sheet->setCellValue('A3','ID');
 		$sheet->setCellValue('B3','JENIS PEMBAYARAN');
 		$sheet->setCellValue('C3','TOTAL PEMBAYARAN');
+		$sheet->setCellValue('D3','NAMA SISWA');
+		$sheet->setCellValue('E3','KELAS');
 
 		$sheet->getStyle('A3')->applyFromArray($style_col);
 		$sheet->getStyle('B3')->applyFromArray($style_col);
 		$sheet->getStyle('C3')->applyFromArray($style_col);
+		$sheet->getStyle('D3')->applyFromArray($style_col);
+		$sheet->getStyle('E3')->applyFromArray($style_col);
 // get data dari database
 		$data_pembayaran = $this->m_model->get_data('pembayaran')->result();
 // isi
@@ -72,10 +76,14 @@ public function  export(){
 		$sheet->setCellValue('A'.$numrow,$data->id);
 		$sheet->setCellValue('B'.$numrow,$data->jenis_pembayaran);
 		$sheet->setCellValue('C'.$numrow,$data->total_pembayaran);
+		$sheet->setCellValue('D'.$numrow,tampil_full_siswa($data->id_siswa));
+		$sheet->setCellValue('E'.$numrow,tampil_full_kelas_byid(tampil_id_kelas($data->id_siswa)));
 
 $sheet->getStyle('A'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('B'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('C'.$numrow)->applyFromArray($style_row);
+$sheet->getStyle('D'.$numrow)->applyFromArray($style_row);
+$sheet->getStyle('E'.$numrow)->applyFromArray($style_row);
 
 $no++;
 $numrow++;
@@ -96,7 +104,7 @@ $numrow++;
 
 
 		header('Content-Type: aplication/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment; filename="Pembayaran.xslx"');
+		header('Content-Disposition: attachment; filename="Pembayaran.xlsx"');
 		header('cache-Control: max-age=0');
 
 		$writer =new Xlsx($spreadsheet);

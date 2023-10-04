@@ -118,7 +118,7 @@
             <div class="mb-3">
                 <div class="mb-3">
                     <label for="total_pembayaran" class="form-label">Total Pembayaran</label>
-                    <input type="text" class="form-control" id="total_pembayaran" name="total_pembayaran"
+                    <input type="number" class="form-control" id="total_pembayaran" name="total_pembayaran"
                         value="<?php echo $data_pembayaran->total_pembayaran ?> ">
                 </div>
 

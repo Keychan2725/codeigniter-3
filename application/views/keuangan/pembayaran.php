@@ -117,7 +117,8 @@
                                 <?php echo tampil_full_kelas_byid($data->id_kelas) ?></td> -->
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->jenis_pembayaran ?>
                             </td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?php echo $data->total_pembayaran ?>
+                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                <?php echo convRupiah($data->total_pembayaran) ?>
                             </td>
 
                             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
