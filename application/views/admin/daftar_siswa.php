@@ -105,7 +105,7 @@
 
 
                     <a href="<?php echo base_url('admin/export') ?>"
-                        class="  inline-block rounded bg-green-600 px-4 py-2  text-xs font-medium text-white hover:bg-green-700 text-center btn btn-success">Export</a>
+                        class=" inline-block rounded bg-green-600 px-4 py-2  text-xs font-medium text-white hover:bg-green-700 text-center btn btn-success">Export</a>
                     <button type="button"
                         class="inline-block rounded bg-sky-400 px-4 py-2  text-xs font-medium text-white hover:bg-sky-500 text-center btn btn-info"
                         data-bs-toggle="modal" data-bs-target="#exampleModal">

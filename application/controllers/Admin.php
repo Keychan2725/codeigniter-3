@@ -123,11 +123,12 @@ class Admin extends CI_Controller
               $highestRow = $worksheet->getHighestRow(); 
               $highestColumn = $worksheet->getHighestColumn(); 
               for ($row = 3; $row <= $highestRow; $row++) { 
-                $foto = $worksheet->getCellByColumnAndRow(6, $row)->getValue(); 
+                  $nama_siswa = $worksheet->getCellByColumnAndRow(2, $row)->getValue(); 
                 $nisn = $worksheet->getCellByColumnAndRow(3, $row)->getValue(); 
-                $nama_siswa = $worksheet->getCellByColumnAndRow(2, $row)->getValue(); 
                 $gender = $worksheet->getCellByColumnAndRow(4, $row)->getValue(); 
                 $kelas = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+                $foto = $worksheet->getCellByColumnAndRow(6, $row)->getValue(); 
+
          
                 // Periksa apakah ID siswa sudah ada 
                 $get_id_by_nisn = $this->m_model->get_by_nisn($nisn); 
@@ -136,12 +137,12 @@ class Admin extends CI_Controller
                 // Ambil kata pertama 
                 $tingkat = $parts[0]; 
                 $jurusan = $parts[1]; 
-                $get_id_by_jurusan = $this->m_model->get_by_jurusan($jurusan, $tingkat); 
+                $get_id_by_jurusan = $this->m_model->get_by_jurusan( $tingkat,$jurusan); 
      
                 if (!$get_id_by_nisn) { 
                   // Jika ID siswa belum ada, masukkan data baru 
                   $data = array( 
-                    'foto' => $foto, 
+                    'foto' => 'User.png', 
                     'nisn' => $nisn, 
                     'nama_siswa' => $nama_siswa, 
                     'gender' => $gender, 
@@ -152,7 +153,6 @@ class Admin extends CI_Controller
                   // Jika ID siswa sudah ada, lakukan tindakan yang sesuai
                   // Misalnya, Anda bisa memperbarui data yang sudah ada 
                   $data = array( 
-                    'foto' => $foto, 
                     'nisn' => $nisn, 
                     'nama_siswa' => $nama_siswa, 
                     'gender' => $gender, 
