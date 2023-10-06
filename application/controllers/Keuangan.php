@@ -12,7 +12,7 @@ class Keuangan extends CI_Controller
         parent::__construct();
         $this->load->model('m_model');
         $this->load->helper('my_helper');
-        if ($this->session->userdata('logged_in') != true && $this->session->userdata('role') != 'keuangan') {
+        if ($this->session->userdata('logged_in') != true || $this->session->userdata('role') != 'keuangan') {
             redirect(base_url() . 'login');
         }
     }
@@ -20,6 +20,21 @@ class Keuangan extends CI_Controller
     {
         $this->load->view('Keuangan/index');
     }
+	public function  export_pembayaran(){
+		$data['data_pembayaran']=$this->m_model->get_data('pembayaran')->result();
+		$data['nama']= 'pembayaran';
+		if ($this->uri->segment(3)== 'pdf') {
+			$this->load->library('pdf');
+			$this->pdf->load_view('keuangan/export_data_pembayaran',$data);
+			$this->pdf->render();
+			$this->pdf->stream('data_pembayaran.pdf', array("Attachment" =>false));
+
+
+			
+		}else {
+			$this->load->view('keuangan/download_data_pembayaran',$data);
+		}
+	}
 
 
 public function  export(){
@@ -60,13 +75,15 @@ public function  export(){
 		$sheet->setCellValue('B3','JENIS PEMBAYARAN');
 		$sheet->setCellValue('C3','TOTAL PEMBAYARAN');
 		$sheet->setCellValue('D3','NAMA SISWA');
-		$sheet->setCellValue('E3','KELAS');
+		$sheet->setCellValue('E3','NISN');
+		$sheet->setCellValue('F3','KELAS');
 
 		$sheet->getStyle('A3')->applyFromArray($style_col);
 		$sheet->getStyle('B3')->applyFromArray($style_col);
 		$sheet->getStyle('C3')->applyFromArray($style_col);
 		$sheet->getStyle('D3')->applyFromArray($style_col);
 		$sheet->getStyle('E3')->applyFromArray($style_col);
+		$sheet->getStyle('F3')->applyFromArray($style_col);
 // get data dari database
 		$data_pembayaran = $this->m_model->get_data('pembayaran')->result();
 // isi
@@ -77,13 +94,15 @@ public function  export(){
 		$sheet->setCellValue('B'.$numrow,$data->jenis_pembayaran);
 		$sheet->setCellValue('C'.$numrow,$data->total_pembayaran);
 		$sheet->setCellValue('D'.$numrow,tampil_full_siswa($data->id_siswa));
-		$sheet->setCellValue('E'.$numrow,tampil_full_kelas_byid(tampil_id_kelas($data->id_siswa)));
+		$sheet->setCellValue('E'.$numrow,tampil_nisn($data->id_siswa));
+		$sheet->setCellValue('F'.$numrow,tampil_full_kelas_byid(tampil_id_kelas($data->id_siswa)));
 
 $sheet->getStyle('A'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('B'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('C'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('D'.$numrow)->applyFromArray($style_row);
 $sheet->getStyle('E'.$numrow)->applyFromArray($style_row);
+$sheet->getStyle('F'.$numrow)->applyFromArray($style_row);
 
 $no++;
 $numrow++;
@@ -94,7 +113,8 @@ $numrow++;
 		$sheet->getColumnDimension('B')->setWidth(25);
 		$sheet->getColumnDimension('C')->setWidth(25);
 		$sheet->getColumnDimension('D')->setWidth(20);
-		$sheet->getColumnDimension('E')->setWidth(30);
+		$sheet->getColumnDimension('E')->setWidth(25);
+		$sheet->getColumnDimension('F')->setWidth(30);
 
 		$sheet->getDefaultRowDimension()->setRowHeight(-1);
 
@@ -118,7 +138,7 @@ public function import(){
 		foreach ($object->getWorksheetIterator() as $worksheet) {
 $highestrow = $worksheet->getHighestRow();
 $highestColumn= $worksheet->getHighestColumn();
-for ($row=2; $row <= $highestrow ; $row++) { 
+for ($row=4; $row <= $highestrow ; $row++) { 
 	$jenis_pembayaran= $worksheet->getCellByColumnAndRow(2, $row)->getValue();
 	$total_pembayaran= $worksheet->getCellByColumnAndRow(3, $row)->getValue();
 	$nisn= $worksheet->getCellByColumnAndRow(5, $row)->getValue();
@@ -131,9 +151,9 @@ $data =array(
 );
 
 $this->m_model->tambah_data('pembayaran',$data);
-}
-}
 redirect(base_url('keuangan/pembayaran'));
+}
+}
 }else {
 	echo "Invalid errror";
 }

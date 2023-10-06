@@ -11,7 +11,7 @@ class Admin extends CI_Controller
         $this->load->model('m_model');
         $this->load->helper('my_helper');
         $this->load->library('upload');
-        if ($this->session->userdata('logged_in') != true && $this->session->userdata('role') != 'admin') {
+        if ($this->session->userdata('logged_in') != true || $this->session->userdata('role') != 'admin') {
             redirect(base_url() . 'login');
         }
     }
@@ -23,6 +23,39 @@ class Admin extends CI_Controller
 
         $this->load->view('admin/index', $data);
     }
+    public function export_guru()
+    {	
+		$data['data_guru']=$this->m_model->get_data('guru')->result();
+		$data['nama']= 'Guru';
+		if ($this->uri->segment(3)== 'pdf') {
+			$this->load->library('pdf');
+			$this->pdf->load_view('admin/export_guru',$data);
+			$this->pdf->render();
+			$this->pdf->stream('data_guru.pdf', array("Attachment" =>false));
+
+
+			
+		}else {
+			$this->load->view('admin/download_guru',$data);
+		}
+
+        $this->load->view('admin/export_guru');
+    }
+    public function  export_siswa(){
+		$data['data_siswa']=$this->m_model->get_data('siswa')->result();
+		$data['nama']= 'siswa';
+		if ($this->uri->segment(3)== 'pdf') {
+			$this->load->library('pdf');
+			$this->pdf->load_view('admin/export_data_siswa',$data);
+			$this->pdf->render();
+			$this->pdf->stream('data_pembayaran.pdf', array("Attachment" =>false));
+
+
+			
+		}else {
+			$this->load->view('admin/download_data_siswa',$data);
+		}
+	}
     public function  export(){
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -338,42 +371,42 @@ class Admin extends CI_Controller
         $data['siswa'] = $this->m_model->get_data('siswa')->result();
         $this->load->view('admin/daftar_siswa', $data);
     }
-    // public function hapus_siswa($id)
-    // {
-    //     $this->m_model->delete('siswa', 'id_siswa', $id);
-    //     redirect(base_url('admin/daftar_siswa'));
-    // }
+    public function hapus_siswa($id)
+    {
+        $this->m_model->delete('siswa', 'id_siswa', $id);
+        redirect(base_url('admin/daftar_siswa'));
+    }
    
-   public function hapus_siswa($id){
-    $siswa=$this->m_model->get_by_id('siswa','id_siswa' ,$id)->row();
-if ($siswa) {
-   if ($siswa->foto !== 'User.png') {
-$file_path = './images/siswa'. $siswa->foto;
-if (file_exists($file_path)) {
-if (unlink($upload_path)) {
-    //hapus file berhasil menggunakan metode delete
-    $this->m_model->delete('siswa','id_siswa',$id);
-    redirect(base_url('admin/daftar_siswa')); 
+//    public function hapus_siswa($id){
+//     $siswa=$this->m_model->get_by_id('siswa','id_siswa' ,$id)->row();
+// if ($siswa) {
+//    if ($siswa->foto !== 'User.png') {
+// $file_path = './images/siswa'. $siswa->foto;
+// if (file_exists($file_path)) {
+// if (unlink($upload_path)) {
+//     //hapus file berhasil menggunakan metode delete
+//     $this->m_model->delete('siswa','id_siswa',$id);
+//     redirect(base_url('admin/daftar_siswa')); 
 
 
-}else {
-    // GAGALL
-    echo 'File tidak ditemukan';
-}
+// }else {
+//     // GAGALL
+//     echo 'File tidak ditemukan';
+// }
     
-}else {
-    // file tidak ditemukan
-    echo 'File tidak ditemukan';
-}
+// }else {
+//     // file tidak ditemukan
+//     echo 'File tidak ditemukan';
+// }
 
-}else {
-// tanpa hapus file user.png
-$this->m_model->delete('siswa','id_siswa',$id);
-redirect(base_url('admin/daftar_siswa'));
-}
-}else {
-    echo 'siswa tidak ditemukan';
-}
-   }
+// }else {
+// // tanpa hapus file user.png
+// $this->m_model->delete('siswa','id_siswa',$id);
+// redirect(base_url('admin/daftar_siswa'));
+// }
+// }else {
+//     echo 'siswa tidak ditemukan';
+// }
+//    }
   
 }
