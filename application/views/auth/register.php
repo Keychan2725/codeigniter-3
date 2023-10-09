@@ -6,7 +6,7 @@
     <meta name="author" content="Muhamad Nauval Azhar">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="This is a login page template based on Bootstrap 5">
-    <title>Halaman Login</title>
+    <title>Halaman Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
@@ -26,23 +26,46 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> Login</p>
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> Register</p>
 
                                     <?php echo $this->session->flashdata('message'); ?>
 
                                     <form method="POST" class="needs-validation" novalidate="" autocomplete="off"
-                                        action="<?php echo base_url(); ?>Auth/aksi_login">
+                                        action="<?php echo base_url(); ?>Auth/aksi_register">
 
 
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
+                                                <input type="email" id="form3Example3c" name="username"
+                                                    class="form-control" required autofocus>
+                                                <label class=" form-label" for="form3Example3c">Username</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
                                                 <input type="email" id="form3Example3c" name="email"
-                                                    class="form-control" value="<?php echo set_value('email'); ?>
-                                    " required autofocus>
+                                                    class="form-control" required autofocus>
                                                 <label class="form-label" for="form3Example3c">Your
                                                     Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="email" id="form3Example3c" name="nama_depan"
+                                                    class="form-control" required autofocus>
+                                                <label class="form-label" for="form3Example3c">Nama Depan</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="email" id="form3Example3c" name="nama_belakang"
+                                                    class="form-control" required autofocus>
+                                                <label class="form-label" for="form3Example3c">Nama Belakang</label>
                                             </div>
                                         </div>
 
@@ -59,14 +82,13 @@
 
                                         <div class="form-check d-flex justify-content-center mb-5">
                                             <label for="form2Example3">
-                                                don't have an account ? <a
-                                                    href="<?php echo base_url('auth/register') ?>"
-                                                    class="text-dark">Registrasi</a>
+                                                don't have an account ? <a href="<?php echo base_url('auth/login') ?>"
+                                                    class="text-dark">login</a>
                                             </label>
                                         </div>
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                            <button type="submit" class="btn btn-primary btn-lg">Registrasi</button>
                                         </div>
 
                                     </form>
@@ -79,7 +101,7 @@
                                 </div>
                                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                                    <img src="https://o.remove.bg/downloads/06b8ad00-bece-436a-8326-22bac2aa56e8/pngtree-cartoon-business-villain-ai-potted-plant-hat-png-image_3819223-removebg-preview.png"
+                                    <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                                         class="img-fluid" alt="Sample image">
 
                                 </div>
